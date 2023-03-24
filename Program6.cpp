@@ -31,7 +31,7 @@ int evalPostfix(string &s)
                 st.push(operand1 * operand2);
                 break;
             case '/':
-                st.push(operand1 / operand2);
+                st.push(operand2 / operand1);
                 break;
             case '^':
                 st.push(pow(operand2, operand1));
