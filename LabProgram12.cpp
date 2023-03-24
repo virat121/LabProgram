@@ -1,18 +1,17 @@
 /* Design a C++ program that uses functions to perform the following:
-a. Create a binary search tree of integers.
-b. Search for an integer key in the above binary search tree non recursively.
-c. Search for an integer key in the above binary search tree recursively.
- */
+a. Create a binary search tree of characters.
+b. Traverse the above Binary search tree recursively in preorder, in order and
+post order */
 #include <iostream>
 using namespace std;
 class Node // creating a node of tree that may have left and right child
 {
-    int key;       // key contains data
+    char key;      // key contains data
     Node *l_child; // left child of tree
     Node *r_child; // right child of tree
 
 public:
-    Node(int data)
+    Node(char data)
     {
         this->key = data;
         l_child = r_child = NULL;
@@ -21,14 +20,14 @@ public:
 };
 class BinarySearchTree
 {
-    Node *root; // ROOT node of binary tree(level-0)
+    Node *root; //ROOT node of binary tree(level-0)
 
 public:
     BinarySearchTree()
     {
         root = NULL;
     }
-    Node *insert(Node *node, int data)
+     Node *insert(Node *node, char data)
     {
         if (node == NULL)
         {
@@ -47,14 +46,14 @@ public:
             cout << "Element already exists in the tree." << endl;
         }
         return node;
-    }
+    } 
     Node *create()
     {
         cout << "Enter the elements to be added: ";
-        int data;
+        char data;
         cin >> data;
         bool flag = false;
-        while (data != -1)
+        while (data != '0')
         {
             flag = true;
             root = insert(root, data);
@@ -71,29 +70,21 @@ public:
         cout << temp->key << " ";
         inorder(temp->r_child);
     }
-    bool recursive_search(Node *root, int x)
+    void preorder(Node *node)
     {
-        if (root == NULL)
-            return false;
-        if (root->key == x)
-            return true;
-        else if (root->key > x)
-            return recursive_search(root->l_child, x);
-        else
-            return recursive_search(root->r_child, x);
+        if (node == NULL)
+            return;
+        cout << node->key << " ";
+        preorder(node->l_child);
+        preorder(node->r_child);
     }
-    bool search(Node *root, int x)
+    void postorder(Node *node)
     {
-        while (root != NULL)
-        {
-            if (root->key == x)
-                return true;
-            else if (root->key < x)
-                root = root->r_child;
-            else
-                root = root->l_child;
-        }
-        return false;
+        if (node == NULL)
+            return;
+        postorder(node->l_child);
+        postorder(node->r_child);
+        cout << node->key << " ";
     }
 };
 
@@ -102,10 +93,10 @@ int main()
     BinarySearchTree Bst;
     Node *helper;
     cout << "\t**Binary Search Tree Menu Card**" << endl;
-    cout << "1.Creating a tree and adding Node(untill u press -1)" << endl;
+    cout << "1.Creating a tree and adding Node(untill u press 0)" << endl;
     cout << "2.Inorder Traversal" << endl;
-    cout << "3.Search Recursively" << endl;
-    cout << "4.Search Non-recursively" << endl;
+    cout << "3.Preorder Traversal" << endl;
+    cout << "4.Postorder Traversal" << endl;
     cout << "5.Exit" << endl;
     while (1)
     {
@@ -130,13 +121,9 @@ int main()
         case 3:
             if (helper)
             {
-                cout << "Enter the Elements to be searched: ";
-                int s_data;
-                cin >> s_data;
-                if (Bst.recursive_search(helper, s_data))
-                    cout << "Element is found " << endl;
-                else
-                    cout << "Element is not found!" << endl;
+                cout << "Preorder Traversal: ";
+                Bst.preorder(helper);
+                cout << endl;
             }
             else
                 cout << "Tree Does Not Exit!" << endl;
@@ -144,13 +131,9 @@ int main()
         case 4:
             if (helper)
             {
-                cout << "Enter the Elements to be searched: ";
-                int s_data;
-                cin >> s_data;
-                if (Bst.search(helper, s_data))
-                    cout << "Element is found " << endl;
-                else
-                    cout << "Element is not found!" << endl;
+                cout << "Postorder Traversal: ";
+                Bst.postorder(helper);
+                cout << endl;
             }
             else
                 cout << "Tree Does Not Exit!" << endl;
