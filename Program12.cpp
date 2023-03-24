@@ -27,7 +27,7 @@ public:
     {
         root = NULL;
     }
-    Node *insert(Node *node, char data)
+     Node *insert(Node *node, char data)
     {
         if (node == NULL)
         {
@@ -46,7 +46,7 @@ public:
             cout << "Element already exists in the tree." << endl;
         }
         return node;
-    }
+    } 
     Node *create()
     {
         cout << "Enter the elements to be added: ";
